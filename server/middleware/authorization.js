@@ -10,7 +10,7 @@ module.exports = async(req, res, next) => {
         }
 
         // Verify Token
-        const payload = jwt.verify(jwtToken, process.env.REACT_APP_jwtSecret);
+        const payload = jwt.verify(jwtToken, `${process.env.REACT_APP_jwtSecret}`);
         req.user = payload.user;
         
     } catch (err) {

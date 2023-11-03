@@ -15,6 +15,7 @@ import Home from './components/Home';
 import Details from './components/Details';
 import Cart from './components/Cart';
 import NavBar from './components/NavBar';
+import Shipping from './components/Shipping';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -46,6 +47,7 @@ function App() {
       const parseResponse = await response.json();
       
       parseResponse === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+      console.log(isAuthenticated);
 
     } catch (err) {
       console.error(err.message);
@@ -74,6 +76,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/products/:product_id" element={<Details id={id}/>}/>
             <Route path="/cart" element={<Cart id={id}/>} />
+            <Route path="/shipping" element={<Shipping />} />
           </Routes>
       </BrowserRouter>
     </Fragment>

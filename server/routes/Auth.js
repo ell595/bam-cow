@@ -32,6 +32,7 @@ router.post('/register', validInfo, async (req, res) => {
             'INSERT INTO users (user_id, name, email, password) VALUES ($1, $2, $3, $4) RETURNING *',
             [id, name, email, bcryptPassword]
         );
+        console.log(newUser);
 
         // Generate JWT token
         const token = jwtGenerator(newUser.rows[0].user_id);

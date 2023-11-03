@@ -1,9 +1,11 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Product from './Product';
+import Shipping from './Shipping';
 
 const Cart = ({id}) => {
     const [cart, setCart] = useState([]);
+    const [url, setUrl] = useState();
 
     async function getCart() {
         console.log(id);
@@ -25,6 +27,7 @@ const Cart = ({id}) => {
 
     async function checkout() {
         console.log('checkout');
+        console.log(cart);
         try {
             const response = await fetch('http://localhost:3000/checkout/create-checkout-session', {
                 method: "POST",
@@ -32,12 +35,14 @@ const Cart = ({id}) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    items: cart
+                    items: cart,
+                    id: id
                 }),
             });
 
             const parseRes = await response.json();
             const url = parseRes.url;
+            setUrl(parseRes.url);
             console.log(url);
         } catch (err) {
             console.error(err.message);

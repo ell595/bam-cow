@@ -1,5 +1,6 @@
 const express = require('express');
 require('dotenv').config();
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 app.use(cors({
@@ -9,8 +10,27 @@ const stripe = require('stripe')(process.env.REACT_APP_STRIPE_PRIVATE_KEY);
 
 
 // Middleware
-
-app.use(express.json()); //req.body
+app.use(
+    bodyParser.json({
+        verify: function(req, res, buf) {
+            req.rawBody = buf;
+        }
+    })
+);
+app.use('/checkout/webhook', express.raw({ type: 'application/json' }));
+app.use(express.json({
+    limit: '5mb',
+    verify: (req, res, buf) => {
+      req.rawBody = buf.toString();
+    }
+})); //req.body
+app.use((req, res, next) => {
+    if (req.originalUrl.includes("/checkout/webhook")) {
+      next();
+    } else {
+      express.json({ limit: "1mb" })(req, res, next);
+    }
+  });
 
 
 // Routes
