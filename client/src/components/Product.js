@@ -6,7 +6,7 @@ const Product = ({product}) => {
     return (
         <Fragment>
                     <div className="card">
-                        <img src={`images/${product.img}`}></img>
+                        <img src={`images/${product.img}`} alt={`${product.name} candle`}></img>
                         <div className="product-info">
                             <input type="hidden" id="product_id" name="id" value={product.id}></input>
                             <h2>{product.name}</h2>

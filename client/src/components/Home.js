@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import { Container, Heading, Text, Flex } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import Product from './Product';
 
@@ -26,6 +27,10 @@ const Home = ({setAuth}) => {
 
     return (
         <Fragment>
+            <Flex className="jumbotron" align="center" justify="space-center" flexDir="column">
+                <Heading display="block">Welcome to BamCow</Heading>
+                <Text>Hand-crafted candles with unique scents</Text>
+            </Flex>
             <div className="container">
                 {allProducts.map((product) => (
                     <Link to={`/products/${product.id}`} state={ product }>
